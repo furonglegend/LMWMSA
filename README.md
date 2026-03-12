@@ -1,6 +1,6 @@
-# CtrlVSR — Controllable Video Super-Resolution (Code Skeleton)
+# Our method — Controllable Video Super-Resolution (Code Skeleton)
 
-This repository contains a structured code skeleton to implement **CtrlVSR**, a motion-aware, controllable Latent World Transformer (LWT) for video super-resolution. The code is organized to support:
+This repository contains a structured code skeleton to implement **Our method**, a motion-aware, controllable Latent World Transformer (LWT) for video super-resolution. The code is organized to support:
 
 - Full curriculum training (dense teacher → sparse-causal adaptation → student distillation).
 - Low-cost sparse-causal LWT direct training.
