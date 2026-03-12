@@ -1,0 +1,33 @@
+# Lower-cost training route that trains sparse-causal LWT directly,
+# optionally does short distillation from a lightweight teacher or EMA.
+
+exp_name: "ctrlvsr_sparse_route"
+parent: "default.yaml"
+
+stage: "sparse_direct"
+
+model:
+  latent_dim: 256
+  lwt_depth: 6
+  lwt_heads: 8
+  block_size: 16
+  topk_blocks: 6
+
+training:
+  batch_size: 6
+  num_epochs: 150
+  lr: 1e-4
+  lr_scheduler:
+    type: "step"
+    step_size: 50
+    gamma: 0.5
+
+distillation:
+  enable_short_distill: true
+  distill_from_ema: true
+  distill_epochs: 5
+
+loss_weights:
+  lambda_DMD: 1.0
+  lambda_flow: 1.0
+  lambda_dec: 1.0

@@ -1,0 +1,61 @@
+# Default configuration for CtrlVSR experiments.
+# Contains model dimensions, optimizer settings, dataset defaults and general runtime options.
+
+exp_name: "ctrlvsr_default"
+seed: 42
+
+# Model
+model:
+  latent_dim: 256
+  lwt_depth: 8
+  lwt_heads: 8
+  block_size: 16        # spatial block size used by block pooling
+  topk_blocks: 8        # default top-k selection for block retrieval
+  pos_enc: "fourier"    # 'fourier' or 'sinusoidal'
+  decoder_hidden: 128
+
+# Motion encoders
+motion:
+  ext_emb_dim: 128
+  int_emb_dim: 128
+  residual_hidden: 64
+
+# Training
+training:
+  batch_size: 4
+  num_epochs: 200
+  lr: 1e-4
+  weight_decay: 1e-2
+  optimizer: "adamw"
+  lr_scheduler: "cosine"   # choices: cosine, step
+  grad_clip_norm: 1.0
+
+# Loss weights (example defaults)
+loss_weights:
+  lambda_DMD: 1.0
+  lambda_flow: 1.0
+  lambda_l2: 1.0
+  lambda_LPIPS: 0.5
+  lambda_JEPA: 0.1
+  lambda_adv: 0.0
+  lambda_conf: 0.1
+  lambda_dec: 1.0
+
+# Dataset / IO
+dataset:
+  name: "REDS"
+  root: "/path/to/dataset"
+  lr_scale: 4
+  window_radius: 2      # tau in the paper, so window length = 2*tau+1
+  crop_size_lr: 64
+  crop_size_hr: 256
+
+# Checkpointing & logging
+checkpoint:
+  save_dir: "./checkpoints"
+  save_every_epochs: 5
+  resume: null
+
+logging:
+  use_wandb: false
+  log_dir: "./logs"
